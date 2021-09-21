@@ -14,8 +14,8 @@ use std::{
 
 use crate::daemon::ThreadClient;
 use crate::{
-    Benchmark, BoardId, Daemon, DerefCell, Key, KeyMap, KeyMapLayer, Layer, Layout, Matrix, Nelson,
-    NelsonKind,
+    fl, Benchmark, BoardId, Daemon, DerefCell, Key, KeyMap, KeyMapLayer, Layer, Layout, Matrix,
+    Nelson, NelsonKind,
 };
 
 #[derive(Default)]
@@ -177,6 +177,16 @@ impl Board {
 
     pub fn model(&self) -> &str {
         &self.inner().model
+    }
+
+    pub fn display_name(&self) -> String {
+        let name = &self.layout().meta.display_name;
+        let model = self.model().splitn(2, '/').nth(1).unwrap();
+        if self.is_fake() {
+            format!("{} ({})", name, fl!("board-fake", model = model))
+        } else {
+            format!("{} ({})", name, model)
+        }
     }
 
     pub fn version(&self) -> &str {

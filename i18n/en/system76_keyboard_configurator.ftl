@@ -3,8 +3,6 @@
 app-about = About {-name}
 app-title = System76 {-name}
 
-board-fake = {$model}, fake
-
 button-cancel = Cancel
 button-configure = Configure Keyboard
 button-disable = Disable

@@ -15,3 +15,5 @@ mode-splash = Splashdown
 mode-multisplash = Meteor Shower
 
 no-board = No board
+
+board-fake = {$model}, fake

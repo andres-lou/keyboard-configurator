@@ -273,16 +273,6 @@ impl Keyboard {
         &self.inner().board
     }
 
-    pub fn display_name(&self) -> String {
-        let name = &self.layout().meta.display_name;
-        let model = self.board().model().splitn(2, '/').nth(1).unwrap();
-        if self.board().is_fake() {
-            format!("{} ({})", name, fl!("board-fake", model = model))
-        } else {
-            format!("{} ({})", name, model)
-        }
-    }
-
     fn layout(&self) -> &Layout {
         &self.inner().board.layout()
     }
@@ -336,10 +326,10 @@ impl Keyboard {
         }
 
         let _loader = self.toplevel().and_then(|x| {
-            Some(
-                x.downcast_ref::<MainWindow>()?
-                    .display_loader(&fl!("loading-keyboard", keyboard = self.display_name())),
-            )
+            Some(x.downcast_ref::<MainWindow>()?.display_loader(&fl!(
+                "loading-keyboard",
+                keyboard = self.board().display_name()
+            )))
         });
 
         let key_indices = self
